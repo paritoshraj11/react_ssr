@@ -1,0 +1,9 @@
+{
+  "presets": [
+    "@babel/preset-react",
+    ["@babel/preset-env", { "targets": { "node": "current" } }]
+  ],
+  "plugins": ["@babel/plugin-proposal-class-properties"]
+}
+
+//plugins are loaded before presets , presets and collection of plugins and it is shareable
