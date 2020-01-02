@@ -1,5 +1,7 @@
 import React from "react";
 import axios from "axios";
+import { Route, Switch } from "react-router-dom";
+
 import AppBar from "./common/appBar";
 import { Toolbar } from "@material-ui/core";
 import RepoGrid from "./common/repoGrid";
@@ -10,7 +12,9 @@ const App = props => {
       <AppBar />
       <Toolbar />
       <RepoGrid />
-      <Home />
+      <Switch>
+        <Route path="/" exact component={Home} />
+      </Switch>
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import React from "react";
 import { hydrate } from "react-dom";
+import { BrowserRouter } from "react-router-dom";
 import App from "./app";
 import { ThemeProvider } from "@material-ui/core/styles";
 import theme from "../theme";
@@ -19,4 +20,9 @@ function Main() {
   );
 }
 
-hydrate(<Main />, document.getElementById("reactele"));
+hydrate(
+  <BrowserRouter>
+    <Main />
+  </BrowserRouter>,
+  document.getElementById("reactele")
+);

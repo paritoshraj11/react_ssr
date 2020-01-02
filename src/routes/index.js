@@ -1,6 +1,8 @@
-import express from "express";
+// import express from "express";
 import App from "../components/app";
 import React from "react";
+import { StaticRouter } from "react-router-dom";
+
 import { renderToString } from "react-dom/server";
 import hbs from "handlebars";
 import { ServerStyleSheets, ThemeProvider } from "@material-ui/core/styles";
@@ -8,6 +10,7 @@ import theme from "../theme";
 
 export default (req, res) => {
   const sheets = new ServerStyleSheets();
+  const url = req.url;
   const theHtml = `
   <html>
   <head><title>Paritosh</title>
@@ -24,9 +27,11 @@ export default (req, res) => {
   const hbsTemplate = hbs.compile(theHtml);
   const reactComp = renderToString(
     sheets.collect(
-      <ThemeProvider theme={theme}>
-        <App />
-      </ThemeProvider>
+      <StaticRouter location={url} context={{}}>
+        <ThemeProvider theme={theme}>
+          <App />
+        </ThemeProvider>
+      </StaticRouter>
     )
   );
   const css = sheets.toString();
