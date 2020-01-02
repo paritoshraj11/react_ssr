@@ -1,6 +1,7 @@
 import React from "react";
 import { Grid, Typography, Card } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { NavLink } from "react-router-dom";
 
 const REPOSITORY = [
   "ALL",
@@ -29,13 +30,20 @@ const RepoGrid = props => {
   return (
     <div>
       <Grid container spacing={2}>
-        {REPOSITORY.map(repo => {
+        {REPOSITORY.map((repo, index) => {
           return (
-            <Grid item xs={4} md={2}>
-              <Card className={classes.card} elevation={1}>
-                {" "}
-                <Typography>{repo}</Typography>
-              </Card>
+            <Grid item xs={4} md={2} key={index}>
+              <NavLink
+                to={`/popular/${repo.toLowerCase()}`}
+                style={{
+                  textDecoration: "none"
+                }}
+              >
+                <Card className={classes.card} elevation={1}>
+                  {" "}
+                  <Typography>{repo}</Typography>
+                </Card>
+              </NavLink>
             </Grid>
           );
         })}

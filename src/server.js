@@ -7,13 +7,7 @@ const app = express();
 app.use(compression());
 app.use(express.static("public"));
 
-app.get("/", mainRequestHandler);
-
-app.get("/data", (req, res, next) => {
-  res.status(200).json({
-    title: "hello to the data api!!!!"
-  });
-});
+app.get("*", mainRequestHandler);
 
 const port = process.env.PORT || 5000;
 app.listen(port, function listenHandler() {

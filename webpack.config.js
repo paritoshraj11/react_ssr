@@ -1,4 +1,5 @@
 const path = require("path");
+var webpack = require("webpack");
 
 const config = {
   entry: {
@@ -25,7 +26,12 @@ const config = {
   },
   resolve: {
     extensions: [".js", ".jsx", ".json", ".wasm", ".mjs", "*"]
-  }
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+      __isBrowser__: "true"
+    })
+  ]
 };
 
 module.exports = config;

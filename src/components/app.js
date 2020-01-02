@@ -1,11 +1,9 @@
 import React from "react";
-import axios from "axios";
 import { Route, Switch } from "react-router-dom";
-
 import AppBar from "./common/appBar";
 import { Toolbar } from "@material-ui/core";
 import RepoGrid from "./common/repoGrid";
-import Home from "./home";
+import routes from "../shared/routes";
 const App = props => {
   return (
     <div>
@@ -13,7 +11,9 @@ const App = props => {
       <Toolbar />
       <RepoGrid />
       <Switch>
-        <Route path="/" exact component={Home} />
+        {routes.map((route, index) => {
+          return <Route key={`__route${index}`} {...route} />;
+        })}
       </Switch>
     </div>
   );

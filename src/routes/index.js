@@ -1,12 +1,12 @@
 // import express from "express";
 import App from "../components/app";
 import React from "react";
-import { StaticRouter } from "react-router-dom";
-
+import { StaticRouter, matchPath } from "react-router-dom";
 import { renderToString } from "react-dom/server";
 import hbs from "handlebars";
 import { ServerStyleSheets, ThemeProvider } from "@material-ui/core/styles";
 import theme from "../theme";
+import routes from "../shared/routes";
 
 export default (req, res) => {
   const sheets = new ServerStyleSheets();
@@ -24,6 +24,8 @@ export default (req, res) => {
   </body>
   </html>
   `;
+  const activeRoute = routes.find(route => matchPath(req.url, route));
+  console.log(">>> active route", activeRoute, req.url);
   const hbsTemplate = hbs.compile(theHtml);
   const reactComp = renderToString(
     sheets.collect(
