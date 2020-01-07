@@ -9,6 +9,7 @@ import theme from "../theme";
 import routes from "../shared/routes";
 
 export default (req, res) => {
+  console.log(">>>>> url", req.url);
   const sheets = new ServerStyleSheets();
   const url = req.url;
   const theHtml = `
@@ -25,16 +26,15 @@ export default (req, res) => {
   </html>
   `;
   const activeRoute = routes.find(route => matchPath(req.url, route));
-  console.log(">>> active route", activeRoute, req.url);
   const hbsTemplate = hbs.compile(theHtml);
   const reactComp = renderToString(
-    sheets.collect(
-      <StaticRouter location={url} context={{}}>
+    <StaticRouter location={url} context={{}}>
+      {sheets.collect(
         <ThemeProvider theme={theme}>
           <App />
         </ThemeProvider>
-      </StaticRouter>
-    )
+      )}
+    </StaticRouter>
   );
   const css = sheets.toString();
   const htmlToSend = hbsTemplate({ reactele: reactComp, css });

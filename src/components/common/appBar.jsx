@@ -43,7 +43,7 @@ export default function MenuAppBar() {
   };
 
   return (
-    <AppBar position="fixed">
+    <AppBar position="fixed" elevation={2}>
       <Toolbar>
         <IconButton
           edge="start"
