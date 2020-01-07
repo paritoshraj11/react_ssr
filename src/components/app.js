@@ -11,8 +11,15 @@ const App = props => {
       <Toolbar />
       <RepoGrid />
       <Switch>
-        {routes.map((route, index) => {
-          return <Route key={`__route${index}`} {...route} />;
+        {routes.map(({ path, exact, component: C, ...rest }, index) => {
+          return (
+            <Route
+              key={`__route${index}`}
+              path={path}
+              exact={exact}
+              render={props => <C {...props} {...rest} />}
+            />
+          );
         })}
       </Switch>
     </div>

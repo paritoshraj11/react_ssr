@@ -1,5 +1,6 @@
 import Home from "../components/home";
 import RepoDetail from "../components/RepoDetail";
+import FetchData from "../fetchData";
 
 const routes = [
   {
@@ -10,7 +11,11 @@ const routes = [
   {
     path: "/popular/:id",
     exact: true,
-    component: RepoDetail
+    component: RepoDetail,
+    fetchData: (path = "") => {
+      let repo = path.split("/").pop();
+      return FetchData(repo);
+    }
   }
 ];
 

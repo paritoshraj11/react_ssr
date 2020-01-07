@@ -7,6 +7,7 @@ import hbs from "handlebars";
 import { ServerStyleSheets, ThemeProvider } from "@material-ui/core/styles";
 import theme from "../theme";
 import routes from "../shared/routes";
+import fetchData from "../fetchData";
 
 export default (req, res) => {
   console.log(">>>>> url", req.url);
@@ -25,18 +26,27 @@ export default (req, res) => {
   </body>
   </html>
   `;
-  const activeRoute = routes.find(route => matchPath(req.url, route));
-  const hbsTemplate = hbs.compile(theHtml);
-  const reactComp = renderToString(
-    <StaticRouter location={url} context={{}}>
-      {sheets.collect(
-        <ThemeProvider theme={theme}>
-          <App />
-        </ThemeProvider>
-      )}
-    </StaticRouter>
-  );
-  const css = sheets.toString();
-  const htmlToSend = hbsTemplate({ reactele: reactComp, css });
-  res.send(htmlToSend);
+  const activeRoute = routes.find(route => matchPath(url, route));
+  const promise = activeRoute.fetchData
+    ? activeRoute.fetchData(url)
+    : fetchData();
+  promise
+    .then(data => {
+      const hbsTemplate = hbs.compile(theHtml);
+      const reactComp = renderToString(
+        <StaticRouter location={url} context={{}}>
+          {sheets.collect(
+            <ThemeProvider theme={theme}>
+              <App />
+            </ThemeProvider>
+          )}
+        </StaticRouter>
+      );
+      const css = sheets.toString();
+      const htmlToSend = hbsTemplate({ reactele: reactComp, css });
+      res.send(htmlToSend);
+    })
+    .catch(err => {
+      console.log(">>> error in main route", err);
+    });
 };

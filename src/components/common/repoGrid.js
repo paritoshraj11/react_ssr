@@ -25,8 +25,6 @@ const useStyle = makeStyles({
   }
 });
 
-const AnchorTag = props => <a {...props} />;
-
 const RepoGrid = props => {
   const classes = useStyle();
   return (
@@ -40,7 +38,6 @@ const RepoGrid = props => {
                 style={{
                   textDecoration: "none"
                 }}
-                component={AnchorTag}
                 activeStyle={{ color: "blue" }}
               >
                 <Card className={classes.card} elevation={1}>
